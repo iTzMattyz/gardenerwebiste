@@ -46,6 +46,7 @@ header {
     animation: slideDown 0.6s ease;
 }
 
+
 @keyframes slideDown {
     from {
         transform: translateY(-100%);
@@ -858,11 +859,16 @@ footer {
     }
     
     .hero {
-        padding: 6rem 5% 3rem;
+        padding: 12rem 5% 3rem;
+        min-height: auto;
     }
     
     .hero-stats {
         grid-template-columns: 1fr;
+    }
+
+    .hero-badge {
+        margin-top: 1rem;
     }
 }
 
