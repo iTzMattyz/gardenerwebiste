@@ -1,373 +1,897 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+:root {
+    --earth-dark: #2c3e2c;
+    --earth-medium: #4a6741;
+    --earth-light: #7a9b71;
+    --sage: #9db391;
+    --sage-light: #c5d4c0;
+    --cream: #f5f2e8;
+    --white: #ffffff;
+    --terracotta: #d4764f;
+    --sand: #e8dcc4;
+    --deep-green: #1a2e1a;
+    --text-dark: #1f2d1f;
+    --border-light: rgba(42, 62, 42, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+    background: var(--cream);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 5%;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-light);
+    animation: slideDown 0.6s ease;
+}
+
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--sage-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-decoration: none;
+    line-height: 1.2;
+}
+
+.logo-tagline {
+    font-size: 0.75rem;
+    color: var(--earth-medium);
+    font-weight: 400;
+}
+
+.nav-links {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a.active {
+    background: var(--text-dark);
+    color: white;
+}
+
+.nav-links a:hover:not(.active) {
+    background: var(--sage-light);
+}
+
+.nav-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.btn-quote {
+    padding: 0.6rem 1.25rem;
+    background: var(--cream);
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 20px;
+    border: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+}
+
+.btn-quote:hover {
+    background: var(--sage-light);
+}
+
+.btn-call {
+    padding: 0.6rem 1.25rem;
+    background: transparent;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 20px;
+    border: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+}
+
+.btn-call:hover {
+    background: var(--sage-light);
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 5% 4rem;
+    position: relative;
+    background: linear-gradient(135deg, rgba(168, 201, 159, 0.85) 0%, rgba(122, 155, 113, 0.85) 50%, rgba(93, 131, 86, 0.85) 100%),
+                url('https://img.freepik.com/free-vector/hand-painted-watercolor-nature-background_23-2148934719.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+/* Animated gradient overlay */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(197, 212, 192, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(122, 155, 113, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(157, 179, 145, 0.15) 0%, transparent 40%);
+    animation: gradientShift 15s ease infinite;
+    pointer-events: none;
+}
+
+@keyframes gradientShift {
+    0%, 100% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
+}
+
+/* Sparkle effect overlay */
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: 
+        radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px);
+    background-size: 50px 50px, 80px 80px;
+    background-position: 0 0, 40px 60px;
+    opacity: 0.2;
+    animation: sparkle 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0.15; }
+    50% { opacity: 0.3; }
+}
+
+@keyframes leafFloat {
+    0%, 100% { 
+        background-position: 0 0, 50% 50%; 
+    }
+    50% { 
+        background-position: 100px 100px, 60% 40%; 
+    }
+}
+
+.hero-main {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 4rem;
+    align-items: start;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-left {
+    padding-top: 2rem;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    font-size: 0.85rem;
+    color: var(--earth-medium);
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.badge-icon {
+    width: 18px;
+    height: 18px;
+    background: var(--sage);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+}
+
+.hero-left h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 400;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.15;
+}
+
+.hero-left h1 .highlight {
+    color: var(--earth-medium);
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    color: var(--earth-dark);
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+    max-width: 600px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.btn-primary {
+    padding: 0.9rem 1.75rem;
+    background: var(--earth-medium);
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    border: 2px solid var(--earth-medium);
+}
+
+.btn-primary:hover {
+    background: var(--earth-dark);
+    border-color: var(--earth-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
+    padding: 0.9rem 1.75rem;
+    background: transparent;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-radius: 25px;
+    border: 2px solid var(--text-dark);
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--text-dark);
+    color: white;
+}
+
+.hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    max-width: 700px;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 1.25rem 1rem;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.stat-box .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.stat-box .stat-label {
+    font-size: 0.75rem;
+    color: var(--earth-medium);
+    line-height: 1.3;
+}
+
+/* Featured Service Card */
+.service-card-featured {
+    background: white;
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 100px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.popular-badge {
+    font-size: 0.75rem;
+    color: var(--earth-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+.card-icon {
+    font-size: 1.5rem;
+}
+
+.service-card-featured h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+}
+
+.checklist {
+    list-style: none;
+    margin-bottom: 1.5rem;
+}
+
+.checklist li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+.checklist .check {
+    color: var(--earth-medium);
+    font-weight: 600;
+}
+
+.card-details {
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    font-size: 0.85rem;
+}
+
+.detail-label {
+    color: var(--earth-medium);
+}
+
+.detail-value {
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.tag {
+    padding: 0.35rem 0.85rem;
+    background: var(--cream);
+    color: var(--earth-medium);
+    border-radius: 15px;
+    font-size: 0.75rem;
+    border: 1px solid var(--border-light);
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rating {
+    font-size: 0.85rem;
+}
+
+.rating-text {
+    color: var(--earth-medium);
+    margin-left: 0.25rem;
+}
+
+.book-link {
+    color: var(--earth-medium);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.book-link:hover {
+    color: var(--text-dark);
+    text-decoration: underline;
+}
+
+/* Services Section */
+.services {
+    padding: 8rem 5%;
+    background: var(--cream);
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--earth-dark);
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--earth-medium);
+    margin-bottom: 4rem;
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-card {
+    background: white;
+    padding: 3rem 2rem;
+    border-radius: 8px;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(42, 62, 42, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--terracotta), var(--earth-light));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+.service-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: var(--earth-dark);
+}
+
+.service-card p {
+    color: var(--earth-medium);
+    line-height: 1.8;
+}
+
+/* About Section */
+.about {
+    padding: 8rem 5%;
+    background: var(--sand);
+}
+
+.about-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.about-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 1.5rem;
+    color: var(--earth-dark);
+}
+
+.about-text p {
+    color: var(--earth-medium);
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--terracotta);
+    display: block;
+}
+
+.stat-label {
+    color: var(--earth-medium);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.about-image {
+    position: relative;
+    height: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--earth-light), var(--sage));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-image::after {
+    content: '🌿';
+    font-size: 8rem;
+    opacity: 0.3;
+}
+
+/* Gallery Section */
+.gallery {
+    padding: 8rem 5%;
+    background: var(--cream);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    position: relative;
+    height: 350px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--earth-light), var(--sage));
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.03);
+}
+
+.gallery-item::after {
+    content: attr(data-title);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover::after {
+    transform: translateY(0);
+}
+
+/* Contact Section */
+.contact {
+    padding: 8rem 5%;
+    background: var(--deep-green);
+    color: var(--cream);
+}
+
+.contact-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 1rem;
+}
+
+.contact p {
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+}
+
+.contact-form {
+    display: grid;
+    gap: 1.5rem;
+    text-align: left;
+}
+
+.form-group {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 1rem;
+    border: 2px solid rgba(245, 242, 232, 0.2);
+    background: rgba(245, 242, 232, 0.1);
+    color: var(--cream);
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--terracotta);
+    background: rgba(245, 242, 232, 0.15);
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.submit-button {
+    padding: 1.2rem 3rem;
+    background: var(--terracotta);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    justify-self: center;
+}
+
+.submit-button:hover {
+    background: var(--earth-light);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Footer */
+footer {
+    padding: 3rem 5%;
+    background: var(--earth-dark);
+    color: var(--sage);
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.social-links a {
+    color: var(--sage);
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--terracotta);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-main {
+        grid-template-columns: 1fr;
+    }
     
-    <!-- SEO Meta Tags -->
-    <title>Giardiniere Esperto | Progettazione Giardini e Servizi di Paesaggistica Professionali</title>
-    <meta name="description" content="Servizi professionali di giardinaggio e paesaggistica. Trasforma il tuo spazio esterno con progettazione esperta del giardino, manutenzione e soluzioni di piantagione sostenibili.">
-    <meta name="keywords" content="giardiniere, paesaggistica, progettazione giardini, cura delle piante, spazi esterni, giardinaggio sostenibile, giardiniere professionista">
-    <meta name="author" content="Giardiniere Professionista">
+    .service-card-featured {
+        position: static;
+        max-width: 500px;
+        margin: 3rem auto 0;
+    }
     
-    <!-- Open Graph / Social Media -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Giardiniere Esperto | Progettazione Giardini Professionale">
-    <meta property="og:description" content="Trasforma il tuo spazio esterno con progettazione esperta del giardino e soluzioni paesaggistiche sostenibili.">
-    <meta property="og:image" content="/images/garden-hero.jpg">
+    .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
     
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        gap: 0.25rem;
+        flex-wrap: wrap;
+    }
     
-    <!-- Style -->
-    <link rel="stylesheet" href="index_styles.css">
+    .nav-links a {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero {
+        padding: 12rem 5% 3rem;
+        min-height: auto;
+    }
+    
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
 
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="logo-container">
-                <div class="logo-icon">🌿</div>
-                <div class="logo-text">
-                    <a href="#home" class="logo">Verdant Craft</a>
-                    <p class="logo-tagline">Giardinaggio esperto • Sesto Fiorentino</p>
-                </div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#services" class="active">Servizi</a></li>
-                <li><a href="#process">Processo</a></li>
-                <li><a href="#work">Lavori</a></li>
-                <li><a href="#reviews">Recensioni</a></li>
-            </ul>
-            <div class="nav-actions">
-                <a href="#quote" class="btn-quote">Richiedi preventivo</a>
-                <a href="tel:+393331234567" class="btn-call">📞 Chiama</a>
-            </div>
-        </nav>
-    </header>
+    .hero-badge {
+        margin-top: 1rem;
+    }
+}
 
-    <main>
-        <section id="home" class="hero">
-            <div class="hero-main">
-                <div class="hero-left">
-                    <div class="hero-badge">
-                        <span class="badge-icon">✓</span>
-                        Cura attenta ai dettagli • Competenza stagionale • Programmazione affidabile
-                    </div>
-                    
-                    <h1>Giardini dall’aspetto curato <br><span class="highlight">tutto l'anno.</span></h1>
-                    
-                    <p class="hero-description">Aiuto proprietari di case e piccole imprese a Sesto Fiorentino a creare e mantenere spazi esterni sani e belli con un processo calmo e un giudizio orticolo esperto.</p>
-                    
-                    <div class="hero-buttons">
-                        <a href="#quote" class="btn-primary">Richiedi preventivo →</a>
-                        <a href="#services" class="btn-secondary">Vedi servizi</a>
-                    </div>
-                    
-                    <div class="hero-stats">
-                        <div class="stat-box">
-                            <div class="stat-number">10+</div>
-                            <div class="stat-label">Anni di pratica</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-number">4.9</div>
-                            <div class="stat-label">Valutazione media</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-number">48h</div>
-                            <div class="stat-label">Risposta preventivo</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-number">Stagionale</div>
-                            <div class="stat-label">Piani di cura</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="hero-right">
-                    <div class="service-card-featured">
-                        <div class="card-header">
-                            <span class="popular-badge">Popolare ora</span>
-                            <span class="card-icon">🌱</span>
-                        </div>
-                        <h3>Controllo preparazione primaverile</h3>
-                        
-                        <ul class="checklist">
-                            <li><span class="check">✓</span> Controllo terreno e drenaggio</li>
-                            <li><span class="check">✓</span> Scansione salute piante</li>
-                            <li><span class="check">✓</span> Piano di potatura</li>
-                            <li><span class="check">✓</span> Mappa pressione erbacce</li>
-                        </ul>
-                        
-                        <div class="card-details">
-                            <div class="detail-row">
-                                <span class="detail-label">Visita tipica</span>
-                                <span class="detail-value">⏱ 60–90 min</span>
-                            </div>
-                            <div class="detail-row">
-                                <span class="detail-label">Area servizio</span>
-                                <span class="detail-value">📍 Sesto Fiorentino</span>
-                            </div>
-                        </div>
-                        
-                        <div class="card-tags">
-                            <span class="tag">Design</span>
-                            <span class="tag">Manutenzione</span>
-                            <span class="tag">Piantagione</span>
-                            <span class="tag">Potatura</span>
-                        </div>
-                        
-                        <div class="card-footer">
-                            <div class="rating">
-                                ⭐⭐⭐⭐⭐ <span class="rating-text">4.9 / 5 (locale)</span>
-                            </div>
-                            <a href="#quote" class="book-link">Prenota consulenza</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+/* Accessibility */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
 
-        <section id="services" class="services">
-            <h2 class="section-title">Servizi Professionali</h2>
-            <p class="section-subtitle">Soluzioni complete per ogni esigenza del giardino</p>
-            
-            <div class="services-grid">
-                <article class="service-card reveal">
-                    <div class="service-icon">🌱</div>
-                    <h3>Progettazione Giardini</h3>
-                    <p>Progetti di giardini su misura adattati alla tua visione, clima e stile di vita. Creazione di spazi esterni armoniosi che uniscono estetica e funzionalità.</p>
-                </article>
-                
-                <article class="service-card reveal">
-                    <div class="service-icon">🌿</div>
-                    <h3>Manutenzione Paesaggistica</h3>
-                    <p>Cura regolare e manutenzione stagionale per mantenere il tuo giardino rigoglioso tutto l'anno. Dalla potatura alla salute del suolo, gestiamo tutto.</p>
-                </article>
-                
-                <article class="service-card reveal">
-                    <div class="service-icon">🌳</div>
-                    <h3>Piantagione Sostenibile</h3>
-                    <p>Soluzioni di piantagione eco-compatibili utilizzando specie native e metodi organici. Costruzione di giardini che supportano gli ecosistemi locali.</p>
-                </article>
-                
-                <article class="service-card reveal">
-                    <div class="service-icon">💐</div>
-                    <h3>Pianificazione Stagionale</h3>
-                    <p>Programmi di piantagione strategici che garantiscono fioriture e raccolti continui durante tutto l'anno. Massima bellezza, minimo spreco.</p>
-                </article>
-                
-                <article class="service-card reveal">
-                    <div class="service-icon">🏡</div>
-                    <h3>Ristrutturazioni Esterne</h3>
-                    <p>Trasformazioni complete del giardino dal concept al completamento. Pavimentazione, elementi acquatici e strutturali.</p>
-                </article>
-                
-                <article class="service-card reveal">
-                    <div class="service-icon">🌺</div>
-                    <h3>Consulenza</h3>
-                    <p>Consigli esperti sulla selezione delle piante, risoluzione problemi del giardino e pianificazione a lungo termine. Ti diamo competenze orticole.</p>
-                </article>
-            </div>
-        </section>
+/* Smooth reveal on scroll */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
 
-        <section id="process" class="about">
-            <div class="about-content">
-                <div class="about-text reveal">
-                    <h2>Competenza in Crescita, Radicata nella Passione</h2>
-                    <p>Con oltre un decennio di esperienza nella trasformazione di spazi esterni, combino competenza orticola con visione artistica per creare giardini che ispirano e resistono.</p>
-                    <p>Ogni progetto è affrontato con meticolosa attenzione alla salute del suolo, ai cicli stagionali e alle pratiche sostenibili. Credo che grandi giardini nascano dalla comprensione del carattere unico di ogni spazio e dei sogni di chi lo abita.</p>
-                    
-                    <div class="stats">
-                        <div class="stat">
-                            <span class="stat-number">200+</span>
-                            <span class="stat-label">Giardini Creati</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">10+</span>
-                            <span class="stat-label">Anni di Esperienza</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">100%</span>
-                            <span class="stat-label">Metodi Biologici</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="about-image reveal">
-                    <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80" alt="Esperto di giardini al lavoro">
-                </div>
-            </div>
-        </section>
-
-        <section id="work" class="gallery">
-            <h2 class="section-title">Progetti Recenti</h2>
-            <p class="section-subtitle">Uno sguardo alle trasformazioni</p>
-            
-            <div class="gallery-grid">
-                <div class="gallery-item reveal" data-title="Oasi Sul Tetto Urbano">
-                    <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600&q=80" alt="Giardino Sul Tetto Urbano">
-                </div>
-                <div class="gallery-item reveal" data-title="Rinascita Giardino Cottage">
-                    <img src="https://images.unsplash.com/photo-1558904541-efa843a96f01?w=600&q=80" alt="Giardino Cottage">
-                </div>
-                <div class="gallery-item reveal" data-title="Paesaggio Minimalista Moderno">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Paesaggio Moderno">
-                </div>
-                <div class="gallery-item reveal" data-title="Installazione Prato Nativo">
-                    <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=600&q=80" alt="Giardino Prato">
-                </div>
-                <div class="gallery-item reveal" data-title="Design Giardino Commestibile">
-                    <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&q=80" alt="Giardino Commestibile">
-                </div>
-                <div class="gallery-item reveal" data-title="Creazione Sentiero Boschivo">
-                    <img src="https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=600&q=80" alt="Sentiero Boschivo">
-                </div>
-            </div>
-        </section>
-
-        <section id="reviews" class="services">
-            <h2 class="section-title">Recensioni Clienti</h2>
-            <p class="section-subtitle">Cosa dicono i nostri clienti di noi</p>
-            
-            <div class="services-grid">
-                <article class="service-card reveal">
-                    <div class="service-icon">⭐⭐⭐⭐⭐</div>
-                    <h3>Lavoro eccellente</h3>
-                    <p>"Molto soddisfatto del risultato. Ha sistemato il giardino in primavera e ora è davvero curato. Persona competente e puntuale, consigliato!"</p>
-                    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--earth-medium); font-style: italic;">— Marco T., Sesto Fiorentino</p>
-                </article>
-                
-                <article class="service-card reveal">
-                    <div class="service-icon">⭐⭐⭐⭐⭐</div>
-                    <h3>Serio e professionale</h3>
-                    <p>"Mi ha aiutato a scegliere le piante giuste per il mio terrazzo. Adesso finalmente ho un bel verde anche d'inverno. Prezzi onesti e ottimo servizio."</p>
-                    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--earth-medium); font-style: italic;">— Laura M., Firenze</p>
-                </article>
-                
-                <article class="service-card reveal">
-                    <div class="service-icon">⭐⭐⭐⭐⭐</div>
-                    <h3>Consigliatissimo</h3>
-                    <p>"Ha fatto un ottimo lavoro di potatura degli ulivi e sistemazione del prato. Molto preparato, ha risposto a tutte le mie domande. Tornerò sicuramente!"</p>
-                    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--earth-medium); font-style: italic;">— Giovanni P., Calenzano</p>
-                </article>
-            </div>
-        </section>
-
-        <section id="quote" class="contact">
-            <div class="contact-content">
-                <h2>Cresciamo Insieme</h2>
-                <p>Pronto a trasformare il tuo spazio esterno? Contattaci per una consulenza.</p>
-                
-                <form class="contact-form" name="contact" method="POST" data-netlify="true">
-                    <div class="form-group">
-                        <label for="name">Nome</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phone">Telefono (facoltativo)</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Raccontaci la tua visione del giardino</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-button">Invia Messaggio</button>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="social-links">
-                <a href="#" aria-label="Instagram">📷</a>
-                <a href="#" aria-label="Facebook">👤</a>
-                <a href="#" aria-label="LinkedIn">💼</a>
-            </div>
-            <p>&copy; 2026 Verdant Gardens. Tutti i diritti riservati.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Smooth scroll reveal on scroll
-        const reveals = document.querySelectorAll('.reveal');
-        
-        const revealOnScroll = () => {
-            const windowHeight = window.innerHeight;
-            
-            reveals.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const revealPoint = 100;
-                
-                if (elementTop < windowHeight - revealPoint) {
-                    element.classList.add('active');
-                }
-            });
-        };
-        
-        window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll(); // Initial check
-        
-        // Active navigation based on scroll position
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-links a');
-        
-        const setActiveNav = () => {
-            let current = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
-                if (window.pageYOffset >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        };
-        
-        window.addEventListener('scroll', setActiveNav);
-        setActiveNav(); // Initial check
-        
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                
-                if (target) {
-                    const offsetTop = target.offsetTop - 80; // Account for fixed header
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Form submission handler (for demo purposes)
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Grazie per il tuo messaggio! Ti risponderemo presto.');
-            this.reset();
-        });
-    </script>
-</body>
-</html>
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
